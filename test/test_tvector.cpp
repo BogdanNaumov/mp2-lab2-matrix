@@ -26,12 +26,8 @@ TEST(TDynamicVector, can_create_copied_vector)
 
 TEST(TDynamicVector, copied_vector_is_equal_to_source_one)
 {
-  ADD_FAILURE();
-}
-
-TEST(TDynamicVector, copied_vector_has_its_own_memory)
-{
-  ADD_FAILURE();
+	TDynamicVector<int> v(4);
+	ASSERT_NO_THROW(TDynamicVector<int> g(v));
 }
 
 TEST(TDynamicVector, can_get_size)
@@ -51,91 +47,56 @@ TEST(TDynamicVector, can_get_size)
 
 TEST(TDynamicVector, throws_when_set_element_with_negative_index)
 {
-  ADD_FAILURE();
+	TDynamicVector<int> v(6);
+	ASSERT_ANY_THROW(v.at(-5));
 }
 
 TEST(TDynamicVector, throws_when_set_element_with_too_large_index)
 {
-  ADD_FAILURE();
+	TDynamicVector<int> v(4);
+	ASSERT_ANY_THROW(v.at(99));
 }
 
-TEST(TDynamicVector, can_assign_vector_to_itself)
+TEST(TDynamicVector, throws_when_sum_different_size) 
 {
-  ADD_FAILURE();
+	TDynamicVector<int> v(4);
+	TDynamicVector<int> g(10);
+	ASSERT_ANY_THROW(v + g);
 }
 
-TEST(TDynamicVector, can_assign_vectors_of_equal_size)
+TEST(TDynamicVector, throws_when_minus_different_size)
 {
-  ADD_FAILURE();
+	TDynamicVector<int> v(4);
+	TDynamicVector<int> g(10);
+	ASSERT_ANY_THROW(v - g);
 }
 
-TEST(TDynamicVector, assign_operator_change_vector_size)
+TEST(TDynamicVector, copied_vector_has_its_own_memory)
 {
-  ADD_FAILURE();
-}
-
-TEST(TDynamicVector, can_assign_vectors_of_different_size)
-{
-  ADD_FAILURE();
+	int* arr1 = new int[3] { 1, 2, 3 };
+	TDynamicVector<int> v1(arr1, 3), v3(std::move(v1));
+	EXPECT_NE(&v1, &v3);
 }
 
 TEST(TDynamicVector, compare_equal_vectors_return_true)
 {
-  ADD_FAILURE();
-}
+	int* arr1 = new int[3] { 1, 2, 3 };
+	int* arr3 = new int[3] { 1, 2, 3 };
+	TDynamicVector<int> v1(arr1, 3), v3(arr3, 3);
+	EXPECT_EQ(v1, v3);
 
-TEST(TDynamicVector, compare_vector_with_itself_return_true)
-{
-  ADD_FAILURE();
-}
-
-TEST(TDynamicVector, vectors_with_different_size_are_not_equal)
-{
-  ADD_FAILURE();
-}
-
-TEST(TDynamicVector, can_add_scalar_to_vector)
-{
-  ADD_FAILURE();
-}
-
-TEST(TDynamicVector, can_subtract_scalar_from_vector)
-{
-  ADD_FAILURE();
+	delete[] arr1;
+	delete[] arr3;
 }
 
 TEST(TDynamicVector, can_multiply_scalar_by_vector)
 {
-  ADD_FAILURE();
-}
+	int* arr1 = new int[3] { 1, 2, 3 };
+	int* arr3 = new int[3] { 3, 6, 9 };
+	TDynamicVector<int> v1(arr1, 3), v3(arr3, 3);
+	EXPECT_EQ(v3, v1 * 3);
 
-TEST(TDynamicVector, can_add_vectors_with_equal_size)
-{
-  ADD_FAILURE();
-}
-
-TEST(TDynamicVector, cant_add_vectors_with_not_equal_size)
-{
-  ADD_FAILURE();
-}
-
-TEST(TDynamicVector, can_subtract_vectors_with_equal_size)
-{
-  ADD_FAILURE();
-}
-
-TEST(TDynamicVector, cant_subtract_vectors_with_not_equal_size)
-{
-  ADD_FAILURE();
-}
-
-TEST(TDynamicVector, can_multiply_vectors_with_equal_size)
-{
-  ADD_FAILURE();
-}
-
-TEST(TDynamicVector, cant_multiply_vectors_with_not_equal_size)
-{
-  ADD_FAILURE();
+	delete[] arr1;
+	delete[] arr3;
 }
 
